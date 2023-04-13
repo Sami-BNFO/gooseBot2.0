@@ -1,22 +1,39 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+//Purge X Messages
+const {
+	SlashCommandBuilder,
+	PermissionFlagsBits,
+} = require("discord.js");
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("purge")
-		.setDescription("Let us purge these heretical messages!...")
+		.setDescription("Purges Chat History")
 		.addNumberOption((option) =>
 			option
 				.setName("amount")
-				.setDescription("How many messages shall be purged?")
+				.setDescription("Purge how many messages?")
 				.setRequired(true)
 		)
-		.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
+		.setDefaultMemberPermissions(
+			PermissionFlagsBits.ManageMessages
+		),
 	async execute(interaction, bot) {
 		const amount = interaction.options.getNumber("amount");
-		//what if the amount is -1? what about 0?
-		//how do we know if this actually works? (try catch it)
 
-		interaction.channel.bulkDelete(amount, true).size;
+		if (amount < 1) {
+			return interaction.reply({
+				content: "Number must be more than 1",
+				ephemeral: true,
+			});
+		}
+
+		try {
+			//try the code
+			await interaction.channel.bulkDelete(amount, true)
+				.size;
+		} catch (err) {
+			console.error(err);
+		}
 
 		interaction.reply({
 			content: "Messages purged",

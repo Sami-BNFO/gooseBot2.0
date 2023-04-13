@@ -8,7 +8,12 @@ const {
 	ActivityType,
 } = require("discord.js");
 const fs = require("fs");
-const bot = new Client({ intents: GateWayIntentBits.Guilds });
+const bot = new Client({
+	intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMembers,
+	],
+});
 bot.commands = new Collection();
 bot.buttons = new Collection();
 bot.commandArray = [];
