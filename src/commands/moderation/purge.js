@@ -1,4 +1,3 @@
-//Purge X Messages
 const {
 	SlashCommandBuilder,
 	PermissionFlagsBits,

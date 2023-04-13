@@ -6,7 +6,12 @@ module.exports = {
 	async execute(bot) {
 		console.log(`${bot.user.tag} online`);
 		bot.user.setPresence({
-			activities: [{ name: `with your heart`, type: ActivityType.Playing }],
+			activities: [
+				{
+					name: `untitled Goose Game`,
+					type: ActivityType.Streaming,
+				},
+			],
 			status: "online",
 		});
 	},
