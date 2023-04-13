@@ -9,7 +9,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("insult")
 		.setDescription(
-			"For when you just cant think of the perfect comeback\n**OUTDATED**"
+			"For when you just cant think of the perfect comeback! *OUTDATED*"
 		)
 		.addUserOption(
 			(option) =>
@@ -69,7 +69,7 @@ module.exports = {
 			.setFooter({
 				text: `\nWhat an epic roast by ${interaction.user.username}`,
 			})
-			.setColor("0xe3c05f");
+			.setColor(0xe3c05f);
 
 		const insultSam = new EmbedBuilder()
 			.setTitle(
@@ -86,7 +86,7 @@ module.exports = {
 			)
 			.setTimestamp(Date.now())
 			.setFooter({ text: `\nvery real trust me` })
-			.setColor("0xe3c05f");
+			.setColor(0xe3c05f);
 
 		if (user.id === "1002697963375702070") {
 			return interaction.reply({
