@@ -1,8 +1,11 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const {
+	SlashCommandBuilder,
+	EmbedBuilder,
+} = require("discord.js");
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName("insult")
+		.setName("insults")
 		.setDescription("Insults a user")
 		.addUserOption((option) =>
 			option
@@ -24,10 +27,11 @@ module.exports = {
 		];
 		let gif =
 			"https://media.giphy.com/media/XGPbVDSbBm70i0P2P4/giphy.gif";
-		const seedInsult = Math.floor(Math.random() * insults.length);
+		const seedInsult = Math.floor(
+			Math.random() * insults.length
+		);
 		const randomInsult = Math.floor(
 			Math.random() * insults[seedInsult][1].length
 		);
-
 	},
 };

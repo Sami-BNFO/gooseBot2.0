@@ -9,7 +9,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("insult")
 		.setDescription(
-			"For when you just cant think of the perfect comeback"
+			"For when you just cant think of the perfect comeback\n**OUTDATED**"
 		)
 		.addUserOption(
 			(option) =>
