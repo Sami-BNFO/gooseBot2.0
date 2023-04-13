@@ -4,7 +4,9 @@ module.exports = {
 	},
 	async execute(interaction, bot) {
 		try {
-			const role = interaction.guild.roles.cache.find((r) => r.name === "!");
+			const role = interaction.guild.roles.cache.find(
+				(r) => r.name === "!"
+			);
 
 			if (!role) {
 				return interaction.reply({
@@ -13,12 +15,14 @@ module.exports = {
 				});
 			}
 
-			return interaction.member.roles.add(role).then((member) =>
-				interaction.reply({
-					content: `${interaction.user.tag} has been verified`,
-					ephemeral: true,
-				})
-			);
+			return interaction.member.roles
+				.add(role)
+				.then((member) =>
+					interaction.reply({
+						content: `${interaction.user.tag} has been verified`,
+						ephemeral: true,
+					})
+				);
 		} catch (err) {
 			console.log(err);
 		}
