@@ -111,10 +111,3 @@ module.exports = {
 		}
 	},
 };
-
-/*const embed = new EmbedBuilder()
-            .setTitle("User Kicked!")
-            .setDescription(`Reason:\n${reason}`)
-            .setTimestamp(Date.now())
-            .setColor(0xe3c05f);
-        */
