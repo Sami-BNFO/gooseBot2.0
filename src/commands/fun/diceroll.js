@@ -48,11 +48,16 @@ module.exports = {
 
 		const embedDice = new EmbedBuilder()
 			.setAuthor({ name: "Goose", iconURL: `${Boticon}` })
-			.setDescription(`You rolled a ${randomNum}!`)
+			.setDescription(
+				`Rolling Dice...\nYou rolled a ${randomNum}!`
+			)
+			.setThumbnail(
+				"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/2-Dice-Icon.svg/2048px-2-Dice-Icon.svg.png"
+			)
 			.setColor(0xe3c05f)
 			.setTimestamp(Date.now())
 			.setFooter({
-				text: ` \n Asked by ${interaction.user.tag} in ${interaction.guild.name}`,
+				text: ` \n${interaction.user.tag} rolled a ${sides} sided dice! `,
 			});
 
 		await interaction.reply({
