@@ -7,23 +7,10 @@ const {
 //this creates the /kick command interface
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName("insults")
-		.setDescription("new and improved")
-		.addUserOption(
-			(option) =>
-				option
-					.setName("name")
-					.setDescription("who are we bullying")
-					.setRequired(true) //
-		),
+		.setName("wyr")
+		.setDescription("What would you rather do?"),
 
 	async execute(interaction, bot) {
-		const user = interaction.options.getUser("name");
-		if (user.id === bot.user.id) {
-			return interaction.reply({
-				content: "I won't insult myself.",
-			});
-		}
 		//prints wyr first, then selects the seed]
 		let choices = [
 			[
