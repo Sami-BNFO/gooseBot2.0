@@ -11,6 +11,7 @@ module.exports = {
 		.setDescription("What would you rather do?"),
 
 	async execute(interaction, bot) {
+    console.log(`${interaction.user.tag} Sabotaged Goose!`)
 		//prints wyr first, then selects the seed]
 		let choices = [
 			[
@@ -92,3 +93,4 @@ module.exports = {
 		});
 	},
 };
+

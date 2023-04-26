@@ -24,6 +24,7 @@ module.exports = {
 				content: "I won't insult myself.",
 			});
 		}
+
 		let insults = [
 			[
 				"ur mom",
@@ -39,7 +40,7 @@ module.exports = {
 					"'s so ugly, she could make an onion cry.",
 					"'s so short, you can see her feet on her driver's license.",
 				],
-			],
+			],//[0]
 			[
 				"You hear that?",
 				[
@@ -49,7 +50,7 @@ module.exports = {
 					" That's the sound of your credibility disappearing.",
 					" That's the sound of your arguments crumbling.",
 				],
-			],
+			],//[1]
 			[
 				"You're so dumb that",
 				[
@@ -60,7 +61,7 @@ module.exports = {
 					"you have an IQ of the average room temperature.",
 					"you couldn't spell 'cat' if you were given the 'c' and the 't'.",
 				],
-			],
+			],//[2]
 			[
 				"I'm amazed that you manage to function in society, considering how",
 				[
@@ -69,7 +70,7 @@ module.exports = {
 					" you're as sharp as a marble.",
 					" you're as dense as a tungsten bar",
 				],
-			],
+			],//[3]
 		];
 		const seedInsult = Math.floor(
 			Math.random() * insults.length
@@ -85,3 +86,25 @@ module.exports = {
 		});
 	},
 };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
