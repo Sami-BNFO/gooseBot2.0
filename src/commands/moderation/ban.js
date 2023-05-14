@@ -19,10 +19,7 @@ module.exports = {
 					.setRequired(true) //
 		)
 		.addStringOption((option) =>
-			option
-				.setName("reason")
-				.setDescription("Reason:")
-				.setRequired(false)
+			option.setName("reason").setDescription("Reason:")
 		)
 		.setDefaultMemberPermissions(
 			PermissionFlagsBits.Administrator

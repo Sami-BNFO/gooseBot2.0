@@ -1,58 +1,73 @@
-const { SlashCommandBuilder } = require("@discordjs");
+const {
+	SlashCommandBuilder,
+	ChannelType,
+	PermissionsBitField,
+} = require("discord.js");
 
 const data = new SlashCommandBuilder()
 	.setName("ticket")
 	.setDescription("Create a ticket")
 	.addStringOption((option) =>
 		option
-			.setName("reason")
-			.setDescription("Reason for creating a ticket")
+			.setName("question")
+			.setDescription(
+				"What do you need help understanding?"
+			)
 			.setRequired(true)
 	);
 
 module.exports = {
 	data: data,
-	async execute(interaction) {
+	async execute(interaction, bot) {
+		const question =
+			interaction.options.getString("question");
 		const ticketNotificationChannel =
-			interaction.guild.channels.cache.find(
-				(c) => c.name === "ticket-notifications"
+			interaction.guild.channels.cache.get(
+				"1107336486610817042"
 			);
 		const ticketChannel =
-			await interaction.guild.channels.create(
-				`ticket-${interaction.user.username}`,
-				{
-					type: "text",
-					permissionOverwrites: [
-						{
-							id: interaction.guild.roles.everyone,
-							deny: ["VIEW_CHANNEL"],
-						},
-						{
-							id: interaction.user.id,
-							allow: [
-								"VIEW_CHANNEL",
-								"SEND_MESSAGES",
-								"READ_MESSAGE_HISTORY",
+			await interaction.guild.channels.create({
+				name: `ticket-${interaction.user.username}`,
+				type: ChannelType.GuildText,
+				permissionOverwrites: [
+					{
+						id: interaction.guild.roles.everyone,
+						deny: [PermissionsBitField.Flags.ViewChannel],
+					},
+					{
+						id: interaction.user.id,
+						allow: [
+							[PermissionsBitField.Flags.ViewChannel],
+							[
+								PermissionsBitField.Flags
+									.ReadMessageHistory,
 							],
-						},
-						{
-							id: interaction.guild.roles.cache.find(
-								((r) => r.name === "Staff").id
-							),
-							allow: [
-								"VIEW_CHANNEL",
-								"SEND_MESSAGES",
-								"READ_MESSAGE_HISTORY",
+							[PermissionsBitField.Flags.SendMessages],
+						],
+					},
+					{
+						id: "1068919647417663558",
+						allow: [
+							[PermissionsBitField.Flags.ViewChannel],
+							[
+								PermissionsBitField.Flags
+									.ReadMessageHistory,
 							],
-						},
-					],
-				}
-			);
+							[PermissionsBitField.Flags.SendMessages],
+						],
+					},
+				],
+			});
+
 		await ticketChannel.send(
-			`${user}: ${reason},\n Hello we will be with you shortly.`
+			`<@${interaction.user.id}> Asked:\n${question}\n\n*A Member of Staff has been alerted, and someone is coming to help you.* `
 		);
 		await ticketNotificationChannel.send(
-			`Ticket created: ${ticketChannel}`
+			`Ticket created: ${ticketChannel}\nTime created: ${new Date()}`
 		);
+		await interaction.reply({
+			content: `Channel setup!\n ${ticketChannel}`,
+			ephemeral: "true",
+		});
 	},
 };

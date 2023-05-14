@@ -6,13 +6,18 @@ const {
 	GatewayIntentBits,
 	Activity,
 	ActivityType,
+	Partials,
 } = require("discord.js");
 const fs = require("fs");
 const bot = new Client({
 	intents: [
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.DirectMessages,
 	],
+	partials: [Partials.Channel, Partials.Message],
 });
 bot.commands = new Collection();
 bot.buttons = new Collection();
