@@ -2,6 +2,7 @@ const {
 	SlashCommandBuilder,
 	ChannelType,
 	PermissionsBitField,
+	PermissionFlagsBits,
 } = require("discord.js");
 
 const data = new SlashCommandBuilder()
@@ -10,9 +11,7 @@ const data = new SlashCommandBuilder()
 	.addStringOption((option) =>
 		option
 			.setName("question")
-			.setDescription(
-				"What do you need help understanding?"
-			)
+			.setDescription("What is your question?")
 			.setRequired(true)
 	);
 
@@ -43,6 +42,7 @@ module.exports = {
 									.ReadMessageHistory,
 							],
 							[PermissionsBitField.Flags.SendMessages],
+							[PermissionsBitField.Flags.ManageChannels],
 						],
 					},
 					{
@@ -54,13 +54,16 @@ module.exports = {
 									.ReadMessageHistory,
 							],
 							[PermissionsBitField.Flags.SendMessages],
+							[PermissionsBitField.Flags.ManageChannels],
 						],
 					},
 				],
 			});
-
+		ticketChannel.setParent("1112025532335407234", {
+			lockPermissions: false,
+		});
 		await ticketChannel.send(
-			`<@${interaction.user.id}> Asked:\n${question}\n\n*A Member of Staff has been alerted, and someone is coming to help you.* `
+			`<@${interaction.user.id}> Asked:\n${question}\n\n*Someone will assist you shortly.* `
 		);
 		await ticketNotificationChannel.send(
 			`Ticket created: ${ticketChannel}\nTime created: ${new Date()}`
@@ -71,3 +74,6 @@ module.exports = {
 		});
 	},
 };
+
+//make duplicate channels no
+//ticketname exists alr, then send "cant do that"
