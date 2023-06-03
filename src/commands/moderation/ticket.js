@@ -18,12 +18,35 @@ const data = new SlashCommandBuilder()
 module.exports = {
 	data: data,
 	async execute(interaction, bot) {
+		if (interaction.channelId !== "1112026106682417202") {
+			await interaction.reply({
+				content:
+					"This command can only be used in #create-ticket!",
+				ephemeral: true,
+			});
+			return;
+		}
 		const question =
 			interaction.options.getString("question");
 		const ticketNotificationChannel =
 			interaction.guild.channels.cache.get(
 				"1107336486610817042"
 			);
+		const existingTicketChannel =
+			interaction.guild.channels.cache.find(
+				(channel) =>
+					channel.type === ChannelType.GuildText &&
+					channel.name ===
+						`ticket-${interaction.user.username}`
+			);
+		if (existingTicketChannel) {
+			await interaction.reply({
+				content: `You already have an active ticket!\n ${existingTicketChannel}`,
+				ephemeral: true,
+			});
+			return;
+		}
+
 		const ticketChannel =
 			await interaction.guild.channels.create({
 				name: `ticket-${interaction.user.username}`,
