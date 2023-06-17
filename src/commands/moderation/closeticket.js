@@ -1,8 +1,4 @@
-const {
-	SlashCommandBuilder,
-	EmbedBuilder,
-	PermissionFlagsBits,
-} = require("discord.js");
+const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -14,20 +10,16 @@ module.exports = {
 		const delChannel = bot.channels.cache.get(channelID);
 
 		if (
-			delChannel.parentId != "1112025532335407234" ||
-			channelID == "1112026106682417202"
+			delChannel.parentId !=
+				process.env.TicketParentChannelID || //if parent is not TICKETS, or CHANNELID is #create-ticket
+			channelID == process.env.createTicketChannelID
 		) {
 			await interaction.reply({
 				content: `Can not delete this channel!\nIt is not a ticket.`,
 				ephemeral: "true",
 			});
 		} else {
-			console.log(channelID);
 			delChannel.delete();
 		}
 	},
 };
-
-//channel name contains "ticket-" and parentId != 1051199232050212934 then
-//
-//parent ID 1112025532335407234

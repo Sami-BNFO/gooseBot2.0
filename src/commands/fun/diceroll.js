@@ -1,8 +1,6 @@
 const {
 	SlashCommandBuilder,
 	EmbedBuilder,
-	Embed,
-	Message,
 } = require("discord.js"); //Loads and utilizes SlashCommandBuilder and EmbedBuilder FROM discord.js
 
 //this creates the /ping command interface

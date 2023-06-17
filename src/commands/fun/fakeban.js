@@ -1,7 +1,6 @@
 const {
 	SlashCommandBuilder,
 	EmbedBuilder,
-	PermissionFlagsBits,
 } = require("discord.js");
 
 //this creates the /kick command interface

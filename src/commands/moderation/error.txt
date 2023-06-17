@@ -1,7 +1,0 @@
-TypeError: undefined is not a function
-    at Object.execute (C:\Users\samim\OneDrive\Documents\Goose Bot\gooseBot2.0\src\commands\moderation\ticket.js:40:42)
-node:events:491
-      throw er; // Unhandled 'error' event
-      ^
-
-DiscordAPIError[50006]: Cannot send an empty message

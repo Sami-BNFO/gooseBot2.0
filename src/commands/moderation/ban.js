@@ -4,7 +4,6 @@ const {
 	PermissionFlagsBits,
 } = require("discord.js");
 
-//this creates the /kick command interface
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("ban")
@@ -74,9 +73,9 @@ module.exports = {
 				ephemeral: true,
 			});
 		}
-		if (user.id === "1002697963375702070") {
+		if (user.id === process.env.ModUserID) {
 			return interaction.reply({
-				content: "CANT BAN SAMI LL",
+				content: "CANT BAN OWNER",
 				ephemeral: true,
 			});
 		}

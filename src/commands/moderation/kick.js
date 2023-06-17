@@ -76,7 +76,7 @@ module.exports = {
 			});
 		}
 
-		if (user.id === "1002697963375702070") {
+		if (user.id === process.env.ModUserID) {
 			return interaction.reply({
 				content: "Goose: no",
 				ephemeral: true,

@@ -2,7 +2,7 @@ const {
 	SlashCommandBuilder,
 	ChannelType,
 	PermissionsBitField,
-	PermissionFlagsBits,
+	EmbedBuilder,
 } = require("discord.js");
 
 const data = new SlashCommandBuilder()
@@ -18,7 +18,10 @@ const data = new SlashCommandBuilder()
 module.exports = {
 	data: data,
 	async execute(interaction, bot) {
-		if (interaction.channelId !== "1112026106682417202") {
+		if (
+			interaction.channelId !==
+			process.env.createTicketChannelID
+		) {
 			await interaction.reply({
 				content:
 					"This command can only be used in #create-ticket!",
@@ -26,11 +29,14 @@ module.exports = {
 			});
 			return;
 		}
+		const serverName = interaction.guild.name;
+		const Boticon =
+			"https://cdn-icons-png.flaticon.com/512/2826/2826187.png";
 		const question =
 			interaction.options.getString("question");
 		const ticketNotificationChannel =
 			interaction.guild.channels.cache.get(
-				"1107336486610817042"
+				process.env.TicketNotifChannelID
 			);
 		const existingTicketChannel =
 			interaction.guild.channels.cache.find(
@@ -69,7 +75,7 @@ module.exports = {
 						],
 					},
 					{
-						id: "1068919647417663558",
+						id: process.env.AdminUserID,
 						allow: [
 							[PermissionsBitField.Flags.ViewChannel],
 							[
@@ -82,21 +88,50 @@ module.exports = {
 					},
 				],
 			});
-		ticketChannel.setParent("1112025532335407234", {
-			lockPermissions: false,
-		});
+		ticketChannel.setParent(
+			process.env.TicketParentChannelID,
+			{
+				lockPermissions: false,
+			}
+		);
 		await ticketChannel.send(
 			`<@${interaction.user.id}> Asked:\n${question}\n\n*Someone will assist you shortly.* `
 		);
-		await ticketNotificationChannel.send(
-			`Ticket created: ${ticketChannel}\nTime created: ${new Date()}`
-		);
+
+		const ticketNotif = new EmbedBuilder()
+
+			.setTitle(`**NEW TICKET**`)
+			.setAuthor({ name: "Goose", iconURL: `${Boticon}` })
+			.setThumbnail(
+				"https://img.freepik.com/free-icon/coupon_318-534561.jpg"
+			)
+			.addFields(
+				{
+					name: "Ticket created: ",
+					value: `${ticketChannel}`,
+				},
+				{ name: "Time created: ", value: `${new Date()}` },
+				{
+					name: "Question: ",
+					value: `${question}`,
+				},
+				{
+					name: "Asked by: ",
+					value: `${interaction.user.tag}\n${interaction.user.id}`,
+				}
+			)
+			.setTimestamp(Date.now())
+			.setFooter({
+				text: ` \n Asked by ${interaction.user.tag} in ${serverName}`,
+			})
+			.setColor(0xe3c05f);
+
+		await ticketNotificationChannel.send({
+			embeds: [ticketNotif],
+		});
 		await interaction.reply({
 			content: `Channel setup!\n ${ticketChannel}`,
 			ephemeral: "true",
 		});
 	},
 };
-
-//make duplicate channels no
-//ticketname exists alr, then send "cant do that"
