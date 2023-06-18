@@ -1,0 +1,29 @@
+const {
+	SlashCommandBuilder,
+	EmbedBuilder,
+} = require("discord.js"); //Loads and utilizes SlashCommandBuilder and EmbedBuilder FROM discord.js
+
+//this creates the /ping command interface
+module.exports = {
+	data: new SlashCommandBuilder()
+		.setName("customrole") //names the command
+		.setDescription("Give a user a custom role!") //sets the description (bit under the name)
+		.addUserOption((option) =>
+			option
+				.setName("Who")
+				.setDescription("Who is receiving the custom role?")
+				.setRequired(true)
+		)
+		.addStringOption((option) =>
+			option
+				.setName("Role Name:")
+				.setDescription("What is the role called?")
+				.setRequired(true)
+		)
+		.setDefaultMemberPermissions(
+			PermissionFlagsBits.ManageMessages
+		),
+	async execute(interaction, bot) {
+		await interaction.reply({});
+	},
+};

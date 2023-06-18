@@ -39,7 +39,9 @@ module.exports = {
 		);
 
 		const banEmbed = new EmbedBuilder()
-			.setTitle(`${user.tag} Has been banned!`)
+			.setTitle(
+				`${user.tag.split("#")[0]} has been banned!`
+			)
 			.setAuthor({
 				name: "Goose",
 				iconURL:
@@ -56,7 +58,7 @@ module.exports = {
 				},
 				{
 					name: "Banned by:\n",
-					value: `${interaction.user.tag}`,
+					value: `${interaction.user.tag.split("#")[0]}`,
 				}
 			)
 			.setTimestamp(Date.now())

@@ -59,7 +59,9 @@ module.exports = {
 
 		const insultEmbed = new EmbedBuilder()
 			.setTitle(
-				`Hey ${user.username}!\n${interaction.user.username} wants to say...`
+				`Hey ${user.username}!\n${
+					interaction.user.tag.split("#")[0]
+				} wants to say...`
 			)
 			.setAuthor({
 				name: "Goose",
@@ -70,13 +72,17 @@ module.exports = {
 			.setDescription(`${insults[ranInsult]}`)
 			.setTimestamp(Date.now())
 			.setFooter({
-				text: `\nWhat an epic roast by ${interaction.user.username}`,
+				text: `\nWhat an epic roast by ${
+					interaction.user.tag.split("#")[0]
+				}`,
 			})
 			.setColor(0xe3c05f);
 
 		const insultSam = new EmbedBuilder()
 			.setTitle(
-				`Hey Guys! ${interaction.user.username} tried to insult ${user.username}...`
+				`Hey Guys! ${
+					interaction.user.tag.split("#")[0]
+				} tried to insult ${user.username}...`
 			)
 			.setAuthor({
 				name: "Goose",
@@ -85,7 +91,9 @@ module.exports = {
 			})
 			.setThumbnail(excla)
 			.setDescription(
-				`Go torch ${interaction.user.username}\'s house down,\n40.741895,-73.989308\n255.70.216.95.\n78.114.9.47`
+				`Go torch ${
+					interaction.user.tag.split("#")[0]
+				}\'s house down,\n40.741895,-73.989308\n255.70.216.95.\n78.114.9.47`
 			)
 			.setTimestamp(Date.now())
 			.setFooter({ text: `\nvery real trust me` })
@@ -109,10 +117,3 @@ module.exports = {
 		}
 	},
 };
-
-/*const embed = new EmbedBuilder()
-            .setTitle("User Kicked!")
-            .setDescription(`Reason:\n${reason}`)
-            .setTimestamp(Date.now())
-            .setColor(0xe3c05f);
-        */

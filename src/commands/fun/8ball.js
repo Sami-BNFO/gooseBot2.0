@@ -7,7 +7,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("8ball")
 		.setDescription(
-			"Let goose answer your most philosophical questions"
+			"Let Goose answer your most philosophical questions"
 		)
 		.addStringOption((option) =>
 			option
@@ -30,6 +30,7 @@ module.exports = {
 	async execute(interaction, bot) {
 		const answers = [
 			[
+				//YES [0]
 				"yes",
 				"YES!",
 				"I'd say so, yeah.",
@@ -37,8 +38,9 @@ module.exports = {
 				"Of course!",
 				"Absolutely, positively, indubitably, without a shadow of a doubt, most likely!",
 				"The goose has spoken: yes.",
-			], // YES [0]
+			],
 			[
+				//NO [1]
 				"no",
 				"NO!",
 				"Of course not!",
@@ -46,8 +48,9 @@ module.exports = {
 				"Not a CHANCE!",
 				"The goose has spoken: no.",
 				"Not in a million years, buddy.",
-			], // NO [1]
+			],
 			[
+				//MISC [2]
 				"I'm a goose, not a wizard",
 				"You're asking the wrong goose",
 				"The goose has spoken: what.",
@@ -55,7 +58,7 @@ module.exports = {
 				"Sorry, I'm not in the mood for existential questions.",
 				"Can't answer that, I'm on my coffee break.",
 				"I'm an 8-ball, not a genie. Ask nicely next time.",
-			], //MISC [2]
+			],
 		];
 		const question =
 			interaction.options.getString("question");
@@ -83,7 +86,7 @@ module.exports = {
 		}
 
 		const embed = new EmbedBuilder()
-			.setTitle(`${interaction.user.tag} asked:`)
+			.setTitle(`${interaction.user.name} asked:`)
 			.setAuthor({
 				name: "Goose",
 				iconURL:
@@ -101,7 +104,9 @@ module.exports = {
 			.setColor(0xe3c05f)
 			.setTimestamp(Date.now())
 			.setFooter({
-				text: ` \n Asked by ${interaction.user.tag} in ${interaction.guild.name}`,
+				text: ` \n Asked by ${
+					interaction.user.tag.split("#")[0]
+				} in ${interaction.guild.name}`,
 			});
 
 		await interaction.reply({

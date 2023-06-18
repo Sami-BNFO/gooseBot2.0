@@ -40,7 +40,7 @@ bot.on("guildMemberAdd", (member) => {
 	const welcChannel = member.guild.channels.cache.get(
 		process.env.WelcChannelID
 	);
-	welcChannel.send(`Welcome, ${member}!`);
+	welcChannel.send(`Welcome to the server, ${member}!`);
 	member.roles.add(roleID);
 });
 

@@ -36,7 +36,7 @@ module.exports = {
 				`https://en.wikipedia.org/wiki/${page}`
 			);
 			word = link
-				.split("https://en.wikipedia.org/wiki/")
+				.split("https://en.wikipedia.org/wiki/") //
 				.pop();
 		}
 		const Boticon =

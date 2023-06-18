@@ -21,7 +21,7 @@ module.exports = {
 				"https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f3d3.png"
 			)
 			.setDescription(
-				`API Latency: ${Math.round(bot.ws.ping)}ms`
+				`API Latency: ${Math.round(bot.ws.ping)}ms\n`
 			)
 			.setColor(0xe3c05f)
 			.setTimestamp(Date.now())

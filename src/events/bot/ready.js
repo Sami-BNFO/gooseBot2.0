@@ -8,8 +8,8 @@ module.exports = {
 		bot.user.setPresence({
 			activities: [
 				{
-					name: `Untitled Goose Game`,
-					type: ActivityType.Playing,
+					name: `your every move`,
+					type: ActivityType.Watching,
 				},
 			],
 			status: "online",

@@ -8,8 +8,8 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("userinfo") //names the command
 		.setDescription(
-			"Displays all the information about a certain user"
-		) //sets the description (bit under the name)
+			"Displays all the information about a user"
+		)
 		.addUserOption((option) =>
 			option
 				.setName("name")
