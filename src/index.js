@@ -33,6 +33,17 @@ for (const folder of functionFolders) {
 	}
 }
 
+bot.on("guildMemberAdd", (member) => {
+	const roleID = member.guild.roles.cache.get(
+		process.env.MemberRoleID
+	);
+	const welcChannel = member.guild.channels.cache.get(
+		process.env.WelcChannelID
+	);
+	welcChannel.send(`Welcome, ${member}!`);
+	member.roles.add(roleID);
+});
+
 bot.eventHandler();
 bot.commandHandler();
 bot.login(process.env.token);
