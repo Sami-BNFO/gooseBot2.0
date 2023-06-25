@@ -28,8 +28,13 @@ module.exports = {
 			.getString("choices")
 			.split(",")
 			.map((option) => option.trim());
-		console.log(choices[0]);
-		console.log(choices[1]);
+		if (choices.length > 9) {
+			await interaction.reply({
+				content: "Too many choices, max of 9.",
+				ephemeral: true,
+			});
+			return;
+		}
 		const embed = new EmbedBuilder()
 			.setTitle(`POLL!\n${question}`)
 			.setDescription("test");
