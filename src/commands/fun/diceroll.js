@@ -1,34 +1,27 @@
 const {
 	SlashCommandBuilder,
 	EmbedBuilder,
-} = require("discord.js"); //Loads and utilizes SlashCommandBuilder and EmbedBuilder FROM discord.js
+} = require("discord.js");
 
-//this creates the /ping command interface
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName("diceroll") //names the command
-		.setDescription("Rolls a dice!") //sets the description
-		.addNumberOption(
-			(
-				option //adds a subcommand that asks for the question in the form of a string, while other varients exist for things like integers
-			) =>
-				option
-					.setName("sides") //names the subcommand
-					.setDescription(
-						"How many sides does this dice have?"
-					) //gives the subcommand a description
-					.setRequired(true) //just makes it mandatory
+		.setName("diceroll")
+		.setDescription("Rolls a dice!")
+		.addNumberOption((option) =>
+			option
+				.setName("sides")
+				.setDescription(
+					"How many sides does this dice have?"
+				)
+				.setRequired(true)
 		)
-		.addNumberOption(
-			(
-				option //adds a subcommand that asks for the question in the form of a string, while other varients exist for things like integers
-			) =>
-				option
-					.setName("frequency") //names the subcommand
-					.setDescription(
-						"How many times is the dice rolled?"
-					) //gives the subcommand a description
-					.setRequired(false) //just makes it mandatory
+		.addNumberOption((option) =>
+			option
+				.setName("frequency")
+				.setDescription(
+					"How many times is the dice rolled?"
+				)
+				.setRequired(false)
 		),
 
 	async execute(interaction, bot) {
@@ -45,17 +38,26 @@ module.exports = {
 			});
 		}
 
-		min = Math.ceil(1);
-		max = Math.floor(sides);
+		let rolls = [];
+		let results = [];
 
-		randomNum = Math.floor(
-			Math.random() * (max - min) + min
-		);
+		for (let i = 0; i < freq; i++) {
+			min = Math.ceil(1);
+			max = Math.floor(sides);
+
+			randomNum = Math.floor(
+				Math.random() * (max - min + 1) + min
+			);
+			rolls.push(randomNum);
+			results.push(`Roll ${i + 1}: ${srandomNum}`);
+		}
 
 		const embedDice = new EmbedBuilder()
 			.setAuthor({ name: "Goose", iconURL: `${Boticon}` })
 			.setDescription(
-				`Rolling Dice...\nYou rolled a ${randomNum}!`
+				`Rolling A Dice ${freq} time(s)...\n\n${results.join(
+					"\n"
+				)}`
 			)
 			.setThumbnail(
 				"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/2-Dice-Icon.svg/2048px-2-Dice-Icon.svg.png"
@@ -65,7 +67,7 @@ module.exports = {
 			.setFooter({
 				text: ` \n${
 					interaction.user.tag.split("#")[0]
-				} rolled a ${sides} sided dice! `,
+				} rolled a ${sides} sided dice ${freq} time(s)! `,
 			});
 
 		await interaction.reply({
@@ -73,7 +75,3 @@ module.exports = {
 		});
 	},
 };
-
-//Get the amount of sides
-//Create a temporary loading screen
-//show results

@@ -8,9 +8,10 @@ TODO
 ORDER
 --------------------------------
 1. Change icons in rps.js to either win/lose instead of individual arsenal /DONE
-2. Chose how many times X dice is rolled.
-3. Convert every new discordusername occurence to .split(#)
+2. Chose how many times X dice is rolled. /DONE
+3. Convert every new discordusername occurence to .split(#) /DONE
 4. Make 8ball only riggable for certain people
 
 
 900. EVENTUALLY make the /wiki page embeded into the actual embed instead of having to leave discord.
+
