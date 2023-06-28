@@ -49,7 +49,7 @@ module.exports = {
 				Math.random() * (max - min + 1) + min
 			);
 			rolls.push(randomNum);
-			results.push(`Roll ${i + 1}: ${srandomNum}`);
+			results.push(`Roll ${i + 1}: ${randomNum}`);
 		}
 
 		const embedDice = new EmbedBuilder()

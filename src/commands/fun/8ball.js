@@ -86,7 +86,7 @@ module.exports = {
 		}
 
 		const embed = new EmbedBuilder()
-			.setTitle(`${interaction.user.name} asked:`)
+			.setTitle(`${interaction.user.username} asked:`)
 			.setAuthor({
 				name: "Goose",
 				iconURL:
