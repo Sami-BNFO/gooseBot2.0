@@ -6,14 +6,21 @@ const {
 //this creates the /ping command interface
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName("ping") //names the command
-		.setDescription("Pings the bot"), //sets the description (bit under the name)
-
+		.setName("cape") //names the command
+		.setDescription("finds the cape of selected user") //sets the description (bit under the name)
+        .addUserOption(
+			(option) =>
+				option
+					.setName("name")
+					.setDescription("Please enter a Minecraft username")
+					.setRequired(true)
+		),
 	async execute(interaction, bot) {
+        const user = interaction.options.getUser("name");
 		const embed = new EmbedBuilder()
-			.setTitle("Pings Goose")
+			.setTitle(user+"'s cape")
 			.setAuthor({
-				name: "Goose",
+				name: "CapeBot",
 				iconURL:
 					"https://cdn-icons-png.flaticon.com/512/2826/2826187.png",
 			})
@@ -26,7 +33,7 @@ module.exports = {
 			.setColor(0xe3c05f)
 			.setTimestamp(Date.now())
 			.setFooter({
-				text: ` \n Asked by ${interaction.user.tag} in ${interaction.guild.name}`,
+				text: `Made with ❤️`,
 			});
 
 		await interaction.reply({
