@@ -9,6 +9,7 @@ const {
 	Partials,
 } = require("discord.js");
 const fs = require("fs");
+const { threadId } = require("worker_threads");
 const bot = new Client({
 	intents: [
 		GatewayIntentBits.Guilds,
@@ -43,6 +44,22 @@ bot.on("guildMemberAdd", (member) => {
 	welcChannel.send(`Welcome to the server, ${member}!`);
 	member.roles.add(roleID);
 });
+
+//-------------------
+bot.on('messageCreate', async (message) => {
+	if (message.author.bot) return;
+	if (message.channel.id == 1){
+
+	}
+	// else{
+	// 	return message.reply('Hello');
+	// }  
+});
+
+
+
+
+
 
 bot.eventHandler();
 bot.commandHandler();

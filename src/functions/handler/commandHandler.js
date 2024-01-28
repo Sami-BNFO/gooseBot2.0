@@ -31,6 +31,6 @@ module.exports = (bot) => {
 			console.log(tableC.toString()); //prints off the ascii table that we made
 		} catch (err) {
 			console.error(err);
-		}
+		}	
 	};
-};
+}
