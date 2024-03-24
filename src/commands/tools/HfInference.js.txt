@@ -1,0 +1,13 @@
+const { HfInference } = require("@huggingface/inference");
+module.exports = {
+    async execute(interaction, bot) {
+        const HF_TOKEN = "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";
+        const inference = new HfInference(HF_TOKEN);
+        
+        await inference.conversational({
+            model: "SamiA1234/GooseBot",
+            inputs: "I love this movie!",
+        });
+
+    }
+};

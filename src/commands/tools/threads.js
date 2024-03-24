@@ -29,9 +29,17 @@ module.exports = {
         await thread.send({
 			content: "Hello!"	
 		});
-        console.log(thread.id)
+		await interaction.reply({
+			content: 'Thread created!',
+			ephemeral: 'True',
+		})
 
-
+		bot.on('messageCreate', async (message) => {
+			if (message.author.bot) return;
+			if (message.channel.id == thread.id){
+				thread.send('Hello!')
+			}
+		});
 
 
 	},
