@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("huggingface12345") 
+        .setName("chat") 
         .setDescription("dyinggg")
         .addStringOption((option) =>
             option
@@ -21,14 +21,29 @@ module.exports = {
             inputs: prompt
         };
 
-        headers = {
+        const headers = {
             'Authorization': 'Bearer ' + HF_TOKEN
         };
-
-        let botResponse = '';
         
-        try {
-            
+
+        const response = await fetch(url, {
+            method: 'post',
+            body: JSON.stringify(payload),
+            headers: headers
+        });
+        const data = await response.json();
+        console.log(data)
+        let botResponse = '';
+
+        if (data.hasOwnProperty('generated_text')) {
+            botResponse = data.generated_text;
+            console.log('Generated Text:' + botResponse)
+        } else if (data.hasOwnProperty('error')) {
+            botResponse = data.error;
+            console.log('Error' + botResponse)
+        }
+
+            /*
             const response = await fetch (url, {
                 method: 'POST',
                 body: JSON.stringify(payload),
@@ -41,11 +56,9 @@ module.exports = {
             } else if (data.hasOwnProperty('error')) {
                 botResponse = "Error: " + data.error;
             } else { botResponse = 'wth'}
-        } catch (error) {
-            console.error("HF404");
-            botResponse = "Oops";
-        }
+            */
 
-        await interaction.editReply(botResponse);
+        //await interaction.editReply(botResponse);
     },
 };
+//need tokenizer.config

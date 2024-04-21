@@ -46,9 +46,6 @@ bot.on("guildMemberAdd", (member) => {
 });
 
 
-
-
-
 bot.eventHandler();
 bot.commandHandler();
 bot.login(process.env.token);

@@ -28,7 +28,7 @@ module.exports = (bot) => {
 			await rest.put(Routes.applicationCommands(process.env.BOT_ID), {
 				body: bot.commandArray,
 			});
-			console.log(tableC.toString()); //prints off the ascii table that we made
+			console.log(tableC.toString());
 		} catch (err) {
 			console.error(err);
 		}	

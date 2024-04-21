@@ -21,6 +21,7 @@ module.exports = {
 				.setDescription("Seperate choices with a comma.")
 				.setRequired(true)
 		),
+		
 	async execute(interaction, bot) {
 		const question =
 			interaction.options.getString("question");

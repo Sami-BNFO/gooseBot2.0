@@ -12,7 +12,7 @@ module.exports = {
 
 	async execute(interaction, bot) {
     console.log(`${interaction.user.tag} Sabotaged Goose!`)
-		//prints wyr first, then selects the seed]
+		//prints wyr first, then selects the seed
 		let choices = [
 			[
 				//Positive
