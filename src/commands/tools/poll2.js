@@ -28,7 +28,7 @@ module.exports = {
         for (const i in options) {
             buttons.push(
                 new ButtonBuilder()
-                    .setCustomId(`B-${i}`)
+                    .setCustomId(`B${i}`)
                     .setLabel(options[i])
                     .setStyle(ButtonStyle.Primary)
             );
@@ -55,3 +55,6 @@ module.exports = {
         });
     },
 };
+
+//finish:
+//music bots
