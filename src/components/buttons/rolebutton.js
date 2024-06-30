@@ -17,8 +17,9 @@ module.exports = {
 
 		const member = interaction.member;
 		if (member.roles.cache.has(roleId)) {
+			await member.roles.remove(role);
 			await interaction.reply({
-				content: 'You already have this role!',
+				content: `Removed your ${role.name} role! `,
 				ephemeral: true,
 			});
 		} else {
