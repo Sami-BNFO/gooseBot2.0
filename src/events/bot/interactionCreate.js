@@ -1,7 +1,7 @@
-const { GateWayIntentBits } = require("discord.js");
+const { GatewayIntentBits } = require('discord.js');
 
 module.exports = {
-	name: "interactionCreate",
+	name: 'interactionCreate',
 	async execute(interaction, bot) {
 		if (interaction.isChatInputCommand()) {
 			const { commands } = bot;
@@ -15,25 +15,40 @@ module.exports = {
 			} catch (err) {
 				console.error(err);
 				await interaction.reply({
-					contents: `Something went wrong while executing this command, plase inform the dev\n<:discordIcon:1119999238357667942> @bnfo`,
+					content: `Something went wrong while executing this command, please inform the dev\n<:discordIcon:1119999238357667942> @bnfo`,
 					ephemeral: true,
 				});
 			}
 		} else if (interaction.isButton()) {
 			const { buttons } = bot;
 			const { customId } = interaction;
-			//console.log('Button clicked: '+customId)
-			const button = buttons.get(customId); //maybe error on this line :)
-			if (!button ) return new Error('no custom ID for this button');
-			
-			try {
-				await button.execute(interaction, bot); //
-			} catch (err) {
-				console.error(err);
-				await interaction.reply({
-					contents: `Something went wrong while executing this button, plase inform the dev\n<:discordIcon:1119999238357667942> @bnfo`,
-					ephemeral: true,
-				});
+
+			if (customId.startsWith('assign-role-')) {
+				const roleButton = buttons.get('assign-role-');
+				if (roleButton) {
+					try {
+						await roleButton.execute(interaction, bot);
+					} catch (err) {
+						console.error(err);
+						await interaction.reply({
+							content: `Something went wrong while executing this button, please inform the dev\n<:discordIcon:1119999238357667942> @bnfo`,
+							ephemeral: true,
+						});
+					}
+				}
+			} else {
+				const button = buttons.get(customId);
+				if (!button) return new Error('No custom ID for this button');
+
+				try {
+					await button.execute(interaction, bot);
+				} catch (err) {
+					console.error(err);
+					await interaction.reply({
+						content: `Something went wrong while executing this button, please inform the dev\n<:discordIcon:1119999238357667942> @bnfo`,
+						ephemeral: true,
+					});
+				}
 			}
 		}
 	},

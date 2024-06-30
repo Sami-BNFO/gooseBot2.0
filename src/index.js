@@ -1,4 +1,4 @@
-require("dotenv").config();
+require('dotenv').config();
 
 const {
 	Client,
@@ -7,8 +7,8 @@ const {
 	Activity,
 	ActivityType,
 	Partials,
-} = require("discord.js");
-const fs = require("fs");
+} = require('discord.js');
+const fs = require('fs');
 
 const bot = new Client({
 	intents: [
@@ -28,23 +28,20 @@ const functionFolders = fs.readdirSync(`./src/functions`);
 for (const folder of functionFolders) {
 	const functionFiles = fs
 		.readdirSync(`./src/functions/${folder}`)
-		.filter((file) => file.endsWith(".js"));
+		.filter((file) => file.endsWith('.js'));
 	for (const file of functionFiles) {
 		require(`./functions/${folder}/${file}`)(bot);
 	}
 }
 
-bot.on("guildMemberAdd", (member) => {
-	const roleID = member.guild.roles.cache.get(
-		process.env.MemberRoleID
-	);
+bot.on('guildMemberAdd', (member) => {
+	const roleID = member.guild.roles.cache.get(process.env.MemberRoleID);
 	const welcChannel = member.guild.channels.cache.get(
 		process.env.WelcChannelID
 	);
 	welcChannel.send(`Welcome to the server, ${member}!`);
 	member.roles.add(roleID);
 });
-
 
 bot.eventHandler();
 bot.commandHandler();
