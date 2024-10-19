@@ -10,6 +10,8 @@ const {
 } = require('discord.js');
 const fs = require('fs');
 
+const { OpusEncoder } = require('opusscript');
+
 const bot = new Client({
 	intents: [
 		GatewayIntentBits.Guilds,
@@ -17,6 +19,7 @@ const bot = new Client({
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.MessageContent,
 		GatewayIntentBits.DirectMessages,
+		GatewayIntentBits.GuildVoiceStates,
 	],
 	partials: [Partials.Channel, Partials.Message],
 });

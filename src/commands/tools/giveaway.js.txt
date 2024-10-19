@@ -1,0 +1,126 @@
+const {
+	SlashCommandBuilder,
+	EmbedBuilder,
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonStyle,
+} = require('discord.js');
+
+module.exports = {
+	data: new SlashCommandBuilder()
+		.setName('giveaway')
+		.setDescription('Flaunt your generosity by hosting a giveaway!')
+		.addStringOption((option) =>
+			option
+				.setName('prize')
+				.setDescription('The thing being given away.')
+				.setRequired(true)
+		)
+		.addIntegerOption((option) =>
+			option
+				.setName('duration')
+				.setDescription('The duration of the giveaway (minutes).')
+				.setRequired(true)
+		),
+
+	async execute(interaction, bot) {
+		const prize = interaction.options.getString('prize');
+		const duration = interaction.options.getInteger('duration');
+		const timestamp = Math.floor(Date.now() / 1000);
+		const futureTimestamp = timestamp + duration * 60;
+
+		const embed = new EmbedBuilder()
+			.setTitle(`Giveaway! ${prize}`)
+			.setAuthor({
+				name: `Hosted by ${interaction.user.tag}`,
+				iconURL: interaction.user.avatarURL(),
+			})
+			.setThumbnail(
+				'https://miro.medium.com/v2/resize:fit:640/format:webp/1*PkQ11_mijBgGVH_8jcmAeQ.png'
+			)
+			.addFields(
+				{
+					name: 'Giveaway Ends',
+					value: `<t:${futureTimestamp}:R>`,
+					inline: true,
+				},
+				{
+					name: 'Entries',
+					value: `0 entries`,
+					inline: true,
+				}
+			)
+			.setColor(0xe3c05f)
+			.setTimestamp(Date.now())
+			.setFooter({
+				text: `Make sure to thank ${interaction.user.tag} for hosting the giveaway ❤`,
+			});
+
+		const row = new ActionRowBuilder().addComponents(
+			new ButtonBuilder()
+				.setCustomId(`giveawaybutton`) //interaction id
+				.setLabel('Enter Giveaway')
+				.setStyle(ButtonStyle.Primary)
+		);
+
+		const replyMessage = await interaction.reply({
+			//interaction
+			embeds: [embed],
+			components: [row],
+			fetchReply: true,
+		});
+
+		bot.giveaways = bot.giveaways || {};
+		bot.giveaways[replyMessage.id] = {
+			//interaction id
+			embed,
+			prize,
+			duration,
+			futureTimestamp,
+			entries: [], //stores as userid
+			messageId: replyMessage.id, //unique giveaway id
+		};
+
+		while (Math.floor(Date.now() / 1000) = futureTimestamp) {}
+
+		const giveawayEndedEmbed = new EmbedBuilder()
+			.setTitle(`Giveaway! ${prize}`)
+			.setAuthor({
+				name: `Hosted by ${interaction.user.tag}`,
+				iconURL: interaction.user.avatarURL(),
+			})
+			.setThumbnail(
+				'https://miro.medium.com/v2/resize:fit:640/format:webp/1*PkQ11_mijBgGVH_8jcmAeQ.png'
+			)
+			.addFields(
+				{
+					name: 'Giveaway Ended',
+					value: `<t:${futureTimestamp}:R>`,
+					inline: true,
+				},
+				{
+					name: 'Entries',
+					value: `${Math.floor(bot.giveaways[interaction.id].entries.length)}`, //this might be formatted wrong idrk rn
+					inline: true,
+				}
+			)
+			.setDescription(
+				`${
+					bot.giveaways[interaction.id].entries[
+						Math.floor(Math.random() * entries.length)
+					]
+				}`
+			)
+			.setColor(0xe3c05f)
+			.setTimestamp(Date.now())
+			.setFooter({
+				text: `This giveaway has ended! make sure to look out for new ones. ❤`,
+			});
+
+		interaction.update({
+			embeds: [giveawayEndedEmbed],
+		});
+	},
+};
+
+//1 you can only have 1 active giveaway

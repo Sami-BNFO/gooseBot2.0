@@ -1,0 +1,49 @@
+const handleVideo = async (url, playlist = false) => {
+			try {
+				// eslint-disable-next-line no-var
+				var songInfo = await ytdl.getBasicInfo(url);
+			} catch (error) {
+				console.log(error);
+				return message.channel.send(
+					"There was an issue when fetching the song's metadata."
+				);
+			}
+
+			const song = {
+				title: songInfo.videoDetails.title,
+				url: songInfo.videoDetails.video_url,
+				duration: songInfo.videoDetails.lengthSeconds,
+			};
+
+
+
+			dispatcher.on('error', (error) => console.warn(error));
+			connection.on('disconnect', () => this.client.queue.delete(guild.id));
+		};
+ else {
+			try {
+				// eslint-disable-next-line no-var
+				
+				var songInfo = await this.client.youtube.getVideo(searchString);
+				await handleVideo(songInfo.id);
+
+			} catch (error) {
+				if (error && !error.message.startsWith('No video ID found in URL:'))
+					console.warn(error);
+				try {
+					songInfo = await this.client.youtube.searchVideos(searchString, 1);
+					if (!songInfo.length)
+						return message.channel.send('No search results found.');
+					await handleVideo(songInfo[0].id);
+				} catch (err) {
+					console.log(err);
+					return message.channel.send(
+						'There seems to have been an error while fetching the video.'
+					);
+				}
+			}
+		}
+	}
+}
+
+module.exports = PlayCommand;

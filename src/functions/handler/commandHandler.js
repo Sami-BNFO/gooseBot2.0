@@ -2,6 +2,7 @@ const fs = require('fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v10');
 const ascii = require('ascii-table');
+const { SlashCommandAssertions, SlashCommandBuilder } = require('discord.js');
 
 const tableC = new ascii().setHeading('Commands', 'Status');
 
@@ -21,7 +22,11 @@ module.exports = (bot) => {
 				const command = require(`../../commands/${folder}/${file}`);
 				if (command.data && command.data.name) {
 					bot.commands.set(command.data.name, command);
-					bot.commandArray.push(command.data.toJSON());
+					if (command.data instanceof SlashCommandBuilder) {
+						bot.commandArray.push(command.data.toJSON());
+					} else {
+						bot.commandArray.push(command.data);
+					}
 					tableC.addRow(command.data.name, 'Loaded');
 				} else {
 					console.warn(
